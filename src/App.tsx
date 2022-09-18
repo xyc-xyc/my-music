@@ -10,7 +10,7 @@ function App() {
   const init = () => {
     if(!inited) {
       setInited(true)
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const AudioContext = window.AudioContext //|| window.webkitAudioContext;
       const audioContext = new AudioContext()
       const track = audioContext.createMediaElementSource(document.querySelector('audio'))
       track.connect(audioContext.destination)
@@ -22,7 +22,7 @@ function App() {
     audio.play()
   }
 
-  const stop = (event) => {
+  const pause = (event) => {
     audio.pause();
   }
 
@@ -30,9 +30,9 @@ function App() {
     setInput(event.target.value)
   }
 
-  const seek = even => {
+  const seek = event => {
     audio.currentTime = input;
-    play()
+    play(event)
   }
 
   useEffect(() => {
@@ -52,11 +52,11 @@ function App() {
             <source src="TheOracle.mp3" />
           </audio>
         </div>       
-        <button onClick={() => play()}>play</button>
-        <button onClick={() => stop()}>stop</button>
+        <button onClick={play}>play</button>
+        <button onClick={pause}>pause</button>
         <span>progress:{progress}</span>
         <div>
-          <input value = {input} onChange={ onchange } /><button onClick={() => seek()}>{"seek&play"}</button>
+          <input value = {input} onChange={ onchange } /><button onClick={seek}>{"seek&play"}</button>
         </div>
     </div>
   );
