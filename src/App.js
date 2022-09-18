@@ -1,43 +1,29 @@
 import { useState , useEffect} from 'react'
-
 import './App.css';
-
 
 function App() {
   const [inited, setInited] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [input, setInput] = useState(0)
-
-  let audioContext =      null
-  let audioElement = null
+  const [input, setInput] = useState(0)  
+  const [audio, setAudio] = useState(null)  
 
   const init = () => {
-    if (inited) {
-      return;
+    if(!inited) {
+      setInited(true)
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const audioContext = new AudioContext()
+      const track = audioContext.createMediaElementSource(document.querySelector('audio'))
+      track.connect(audioContext.destination)
     }
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-    audioContext = new AudioContext();
-    audioElement = document.querySelector('audio');
-    setInited(true)
-
-    const track = audioContext.createMediaElementSource(audioElement);
-
-    track.connect(audioContext.destination);
   }
 
-  const play = (event) => {
-    init()
-    let audioElement = document.querySelector('audio');
-
-    audioElement.play();
+  const play = (event) => {   
+    init() 
+    audio.play()
   }
 
   const stop = (event) => {
-    init()
-    let audioElement = document.querySelector('audio');
-
-    audioElement.pause();
+    audio.pause();
   }
 
   const onchange = event => {
@@ -45,15 +31,15 @@ function App() {
   }
 
   const seek = even => {
-    init()
-    let audioElement = document.querySelector('audio');
-    audioElement.currentTime = input;
+    audio.currentTime = input;
     play()
   }
 
   useEffect(() => {
+    const audio = document.querySelector('audio')
+    setAudio(audio)
     const interval = setInterval(() => {
-      setProgress(Math.round(document.querySelector('audio').currentTime))
+      setProgress(Math.round(audio.currentTime))
     }, 1000);
     return () => clearInterval(interval);
   }, []);

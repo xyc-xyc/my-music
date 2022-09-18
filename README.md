@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ###
 
-Sample music (TheOracle.mp3) is shared by https://freemusicarchive.org/home under license https://creativecommons.org/licenses/by-sa/4.0/. All rights reserved for the original authur(s)
+Sample music (TheOracle.mp3) is shared by https://freemusicarchive.org/home under license https://creativecommons.org/licenses/by-sa/4.0/. All rights reserved for the original author(s)
